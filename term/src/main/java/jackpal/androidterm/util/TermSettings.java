@@ -50,6 +50,7 @@ public class TermSettings {
     private boolean mDoPathExtensions;
     private boolean mAllowPathPrepend;
     private String mHomePath;
+    private String mFontPath;
 
     private String mPrependPath = null;
     private String mAppendPath = null;
@@ -86,6 +87,7 @@ public class TermSettings {
     private static final String MOUSE_TRACKING = "mouse_tracking";
     private static final String USE_KEYBOARD_SHORTCUTS = "use_keyboard_shortcuts";
     private static final String TOAST_POSITION = "toast_position";
+    private static final String CUSTOM_FONT_PATH = "custom_font_filepath";
 
     public static final int WHITE               = 0xffffffff;
     public static final int BLACK               = 0xff000000;
@@ -187,6 +189,7 @@ public class TermSettings {
         mAltSendsEsc = res.getBoolean(R.bool.pref_alt_sends_esc_default);
         mMouseTracking = res.getBoolean(R.bool.pref_mouse_tracking_default);
         mUseKeyboardShortcuts = res.getBoolean(R.bool.pref_use_keyboard_shortcuts_default);
+        mFontPath = res.getString(R.string.pref_customfontfilepath_default);
         mToastPosition = res.getInteger(R.integer.perf_toast_position_default);
     }
 
@@ -218,6 +221,7 @@ public class TermSettings {
         mMouseTracking = readBooleanPref(MOUSE_TRACKING, mMouseTracking);
         mUseKeyboardShortcuts = readBooleanPref(USE_KEYBOARD_SHORTCUTS,
                 mUseKeyboardShortcuts);
+        mFontPath = readStringPref(CUSTOM_FONT_PATH,"");
         mToastPosition = readIntPref(TOAST_POSITION, mToastPosition, TOAST_POSITION_MAX);
         mPrefs = null;  // we leak a Context if we hold on to this
     }
@@ -397,4 +401,6 @@ public class TermSettings {
         }
         return result;
     }
+
+    public String getFontPath() { return mFontPath;}
 }
