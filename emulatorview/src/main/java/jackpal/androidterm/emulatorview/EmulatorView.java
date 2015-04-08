@@ -1291,11 +1291,9 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
             }
         }
 
-        if(Build.MODEL.contains("Transformer TF101")) {
-            if(event.isShiftPressed() && ( keyCode == KeyEvent.KEYCODE_DEL )) {
-                keyCode=KeyEvent.KEYCODE_FORWARD_DEL;
-                event=new KeyEvent(KeyEvent.ACTION_DOWN,KeyEvent.KEYCODE_FORWARD_DEL);
-            }
+        if(event.isShiftPressed() && ( keyCode == KeyEvent.KEYCODE_DEL )) {
+            keyCode=KeyEvent.KEYCODE_FORWARD_DEL;
+            event=new KeyEvent(KeyEvent.ACTION_DOWN,KeyEvent.KEYCODE_FORWARD_DEL);
         }
 
         // Translate the keyCode into an ASCII character.
