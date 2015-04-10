@@ -20,6 +20,7 @@ import jackpal.androidterm.compat.ActionBarCompat;
 import jackpal.androidterm.compat.ActivityCompat;
 import jackpal.androidterm.compat.AndroidCompat;
 import jackpal.androidterm.compat.MenuItemCompat;
+import jackpal.androidterm.compat.UIModeCompat;
 import jackpal.androidterm.emulatorview.EmulatorView;
 import jackpal.androidterm.emulatorview.TermSession;
 import jackpal.androidterm.emulatorview.UpdateCallback;
@@ -37,6 +38,7 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.UiModeManager;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -59,6 +61,7 @@ import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -328,7 +331,7 @@ public class Term extends Activity implements UpdateCallback {
         super.onCreate(icicle);
         Log.e(TermDebug.LOG_TAG, "onCreate");
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        mSettings = new TermSettings(getResources(), mPrefs);
+        mSettings = new TermSettings(this, mPrefs);
         mPrivateAlias = new ComponentName(this, RemoteInterface.PRIVACT_ACTIVITY_ALIAS);
 
         Intent broadcast = new Intent(ACTION_PATH_BROADCAST);
@@ -393,6 +396,16 @@ public class Term extends Activity implements UpdateCallback {
 
         updatePrefs();
         mAlreadyStarted = true;
+    }
+
+    protected int dpToPixel(int input) {
+        Resources r = getResources();
+        int px = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                input,
+                r.getDisplayMetrics()
+        );
+        return px;
     }
 
     private String makePathFromBundle(Bundle extras) {
@@ -600,6 +613,18 @@ public class Term extends Activity implements UpdateCallback {
         } else {
             /* Shouldn't be happened. */
         }
+
+        ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) mViewFlipper.getLayoutParams();
+        if(mSettings.getSafeMargins()) {
+            //mViewFlipper.
+            marginParams.setMargins(
+                    dpToPixel(48),dpToPixel(27),
+                    dpToPixel(48),dpToPixel(27)
+            );
+        }else{
+            marginParams.setMargins(0,0,0,0);
+        }
+
         setRequestedOrientation(o);
 
         this.toastGravity=mSettings.getToastGravity();

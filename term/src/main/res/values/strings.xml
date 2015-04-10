@@ -66,6 +66,9 @@
    <string name="summary_toast_position">Choose the position for the toast notification to show up.</string>
    <string name="dialog_title_toast_position">Choose the toast notification position</string>
 
+   <string name="title_safe_margins_preference">Safe margins</string>
+   <string name="summary_safe_margins_preference">Add overscan margins to the terminal screen.</string>
+
    <string name="title_cursorstyle_preference">Cursor style</string>
    <string name="summary_cursorstyle_preference">Choose cursor style.</string>
    <string name="dialog_title_cursorstyle_preference">Cursor style</string>
