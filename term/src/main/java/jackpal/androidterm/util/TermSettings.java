@@ -204,7 +204,7 @@ public class TermSettings {
         mMouseTracking = res.getBoolean(R.bool.pref_mouse_tracking_default);
         mUseKeyboardShortcuts = res.getBoolean(R.bool.pref_use_keyboard_shortcuts_default);
         mFontPath = res.getString(R.string.pref_customfontfilepath_default);
-        mToastPosition = res.getInteger(R.integer.perf_toast_position_default);
+        mToastPosition = res.getInteger(R.integer.pref_toast_position_default);
         mSafeMargins = res.getBoolean(R.bool.pref_safe_margins_default);
     }
 
