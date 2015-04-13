@@ -44,6 +44,7 @@ import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewParent;
 import android.view.inputmethod.BaseInputConnection;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.CorrectionInfo;
@@ -1494,8 +1495,8 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
     }
 
     private void updateSize(int w, int h) {
-        mColumns = Math.max(1, (int) (((float) w) / mCharacterWidth));
-        mVisibleColumns = Math.max(1, (int) (((float) mVisibleWidth) / mCharacterWidth));
+        mColumns = Math.max(1, (int) Math.floor(((float) w) / mCharacterWidth));
+        mVisibleColumns = Math.max(1, (int) Math.floor(((float) mVisibleWidth) / mCharacterWidth));
 
         mTopOfScreenMargin = mTextRenderer.getTopMargin();
         mRows = Math.max(1, (h - mTopOfScreenMargin) / mCharacterHeight);
@@ -1519,9 +1520,17 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
         //Need to clear saved links on each display refresh
         mLinkLayer.clear();
         if (mKnownSize) {
-            int w = getWidth();
-            int h = getHeight();
-            // Log.w("Term", "(" + w + ", " + h + ")");
+
+            int w = getWidth() - getPaddingLeft() -getPaddingRight();
+            int h = getHeight() -getPaddingTop() -getPaddingBottom();
+            ViewParent parent=getParent();
+            if(parent instanceof View) {
+                w -= ((View) parent).getPaddingLeft() + ((View) parent).getPaddingRight();
+                h -= ((View) parent).getPaddingTop() + ((View) parent).getPaddingBottom();
+            }
+
+            //Log.w("Term", "(" + w + ", " + h + ")");
+
             if (force || w != mVisibleWidth || h != mVisibleHeight) {
                 mVisibleWidth = w;
                 mVisibleHeight = h;
@@ -1737,4 +1746,5 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
         else
             return null;
     }
+
 }
