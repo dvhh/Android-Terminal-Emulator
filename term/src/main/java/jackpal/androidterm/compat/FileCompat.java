@@ -16,12 +16,15 @@
 
 package jackpal.androidterm.compat;
 
+import android.annotation.TargetApi;
+
 import java.io.File;
 
 /**
  * Compatibility class for java.io.File
  */
 public class FileCompat {
+    @TargetApi(9)
     private static class Api9OrLater {
         public static boolean canExecute(File file) {
             return file.canExecute();

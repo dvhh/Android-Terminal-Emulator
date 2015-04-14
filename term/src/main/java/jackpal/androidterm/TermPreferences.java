@@ -26,7 +26,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import jackpal.androidterm.compat.FileCompat;
+
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.os.Environment;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -38,6 +41,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.io.File;
+
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +52,7 @@ import java.io.OutputStream;
 public class TermPreferences extends PreferenceActivity {
     private static final String ACTIONBAR_KEY = "actionbar";
     private static final String CATEGORY_SCREEN_KEY = "screen";
+    private static final String SHELL_KEY = "shell";
 
     private static final String CUSTOM_FONT_CHOOSER_KEY ="custom_font_filepath";
     private static final String CATEGORY_TEXT_KEY = "text_category";
@@ -107,6 +114,21 @@ public class TermPreferences extends PreferenceActivity {
             if (bar != null) {
                 bar.setDisplayOptions(ActionBarCompat.DISPLAY_HOME_AS_UP, ActionBarCompat.DISPLAY_HOME_AS_UP);
             }
+        }
+
+        EditTextPreference shellPreference=(EditTextPreference)findPreference(SHELL_KEY);
+        if(shellPreference != null) {
+            shellPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if(newValue instanceof String) {
+                        String value=(String) newValue;
+                        File check=new File(value);
+                        return check.exists() && FileCompat.canExecute(check);
+                    }
+                    return false;
+                }
+            });
         }
 
 
