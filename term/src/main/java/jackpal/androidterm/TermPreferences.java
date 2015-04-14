@@ -19,15 +19,22 @@ package jackpal.androidterm;
 import jackpal.androidterm.compat.ActionBarCompat;
 import jackpal.androidterm.compat.ActivityCompat;
 import jackpal.androidterm.compat.AndroidCompat;
+import jackpal.androidterm.compat.FileCompat;
+
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.view.MenuItem;
 
+import java.io.File;
+
+
 public class TermPreferences extends PreferenceActivity {
     private static final String ACTIONBAR_KEY = "actionbar";
     private static final String CATEGORY_SCREEN_KEY = "screen";
+    private static final String SHELL_KEY = "shell";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,21 @@ public class TermPreferences extends PreferenceActivity {
             if (bar != null) {
                 bar.setDisplayOptions(ActionBarCompat.DISPLAY_HOME_AS_UP, ActionBarCompat.DISPLAY_HOME_AS_UP);
             }
+        }
+
+        EditTextPreference shellPreference=(EditTextPreference)findPreference(SHELL_KEY);
+        if(shellPreference != null) {
+            shellPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if(newValue instanceof String) {
+                        String value=(String) newValue;
+                        File check=new File(value);
+                        return check.exists() && FileCompat.canExecute(check);
+                    }
+                    return false;
+                }
+            });
         }
     }
 
