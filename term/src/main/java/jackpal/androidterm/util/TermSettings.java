@@ -237,7 +237,7 @@ public class TermSettings {
         mMouseTracking = readBooleanPref(MOUSE_TRACKING, mMouseTracking);
         mUseKeyboardShortcuts = readBooleanPref(USE_KEYBOARD_SHORTCUTS,
                 mUseKeyboardShortcuts);
-        mFontPath = readStringPref(CUSTOM_FONT_PATH,"");
+        mFontPath = readStringPref(CUSTOM_FONT_PATH, "");
         mToastPosition = readIntPref(TOAST_POSITION, mToastPosition, TOAST_POSITION_MAX);
         mPrefs = null;  // we leak a Context if we hold on to this
     }
@@ -421,5 +421,5 @@ public class TermSettings {
     }
 
     public String getFontPath() { return mFontPath;}
-
+    
 }

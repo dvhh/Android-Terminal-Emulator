@@ -88,7 +88,6 @@ public class TermViewFlipper extends ViewFlipper implements Iterable<View> {
     public TermViewFlipper(Context context) {
         super(context);
         commonConstructor(context);
-
     }
 
     public TermViewFlipper(Context context, AttributeSet attrs) {
