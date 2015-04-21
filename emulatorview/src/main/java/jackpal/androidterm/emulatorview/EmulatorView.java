@@ -29,6 +29,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -119,6 +120,9 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
      * Typeface
      */
     private Typeface mTypeface = Typeface.MONOSPACE;
+
+    private Drawable mBackgroundDrawable = null;
+    private int mBackgroundAlpha=50;
 
     private Paint mForegroundPaint;
 
@@ -642,6 +646,10 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
         updateText();
     }
 
+    public void setmBackgroundDrawable(Drawable backgroundDrawable) {
+        this.mBackgroundDrawable=backgroundDrawable;
+    }
+
     @Override
     public boolean onCheckIsTextEditor() {
         return true;
@@ -1122,7 +1130,7 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
             x > 255-32 || y > 255-32;
         //Log.d(TAG, "mouse button "+x+","+y+","+button_code+",oob="+out_of_bounds);
         if(button_code < 0 || button_code > 255-32) {
-            Log.e(TAG, "mouse button_code out of range: "+button_code);
+            Log.e(TAG, "mouse button_code out of range: " + button_code);
             return;
         }
         if(!out_of_bounds) {
@@ -1552,7 +1560,13 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
 
         Paint backgroundPaint =
                 reverseVideo ? mForegroundPaint : mBackgroundPaint;
-        canvas.drawRect(0, 0, w, h, backgroundPaint);
+        if(mBackgroundDrawable==null) {
+            canvas.drawRect(0, 0, w, h, backgroundPaint);
+        }else{
+            mBackgroundDrawable.draw(canvas);
+            backgroundPaint.setAlpha(255-mBackgroundAlpha);
+            canvas.drawRect(0, 0, w, h, backgroundPaint);
+        }
         float x = -mLeftColumn * mCharacterWidth;
         float y = mCharacterHeight + mTopOfScreenMargin;
         int endLine = mTopRow + mRows;
