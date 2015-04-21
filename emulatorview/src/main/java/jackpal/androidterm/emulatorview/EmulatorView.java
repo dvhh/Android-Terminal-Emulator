@@ -122,7 +122,7 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
     private Typeface mTypeface = Typeface.MONOSPACE;
 
     private Drawable mBackgroundDrawable = null;
-    private int mBackgroundAlpha=50;
+    private int mBackgroundAlpha=128;
 
     private Paint mForegroundPaint;
 
@@ -650,6 +650,9 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
         this.mBackgroundDrawable=backgroundDrawable;
     }
 
+    public void setBackgroundAlpha(int value) {
+        mBackgroundAlpha=value;
+    }
     @Override
     public boolean onCheckIsTextEditor() {
         return true;
