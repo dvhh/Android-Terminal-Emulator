@@ -69,6 +69,14 @@
    <string name="title_safe_margins_preference">Safe margins</string>
    <string name="summary_safe_margins_preference">Add overscan margins to the terminal screen.</string>
 
+   <string name="title_use_system_wallpaper_preference">Use system wallpaper</string>
+   <string name="summary_use_system_wallpaper_preference">Use system wallpaper as terminal background</string>
+
+   <string name="title_transparency_preference">Wallpaper transparency</string>
+   <string name="summary_transparency_preference">Set wallpaper transparency</string>
+   <string name="format_transparency_preference">%.1f%%</string>
+   <string name="dialog_use_system_wallpaper_preference">Set the wallpaper transparency</string>
+
    <string name="title_cursorstyle_preference">Cursor style</string>
    <string name="summary_cursorstyle_preference">Choose cursor style.</string>
    <string name="dialog_title_cursorstyle_preference">Cursor style</string>

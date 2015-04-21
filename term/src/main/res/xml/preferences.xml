@@ -62,6 +62,23 @@
                 android:title="@string/title_safe_margins_preference"
                 android:summary="@string/summary_safe_margins_preference"
             />
+
+        <CheckBoxPreference
+                android:key="use_system_wallpaper"
+            android:defaultValue="@bool/pref_use_system_wallpaper_default"
+            android:title="@string/title_use_system_wallpaper_preference"
+            android:summary="@string/summary_use_system_wallpaper_preference"/>
+
+
+        <jackpal.androidterm.preferences.SliderPreference
+            android:key="system_wallpaper_alpha"
+            android:max="255"
+            android:defaultValue="@integer/pref_transparency_default"
+            android:title="@string/title_transparency_preference"
+            android:dialogTitle="@string/title_transparency_preference"
+            android:dialogMessage="@string/dialog_use_system_wallpaper_preference"
+            android:summary="@string/summary_transparency_preference"
+            />
 <!--
         <ListPreference
                 android:key="cursorstyle"

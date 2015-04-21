@@ -27,6 +27,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import jackpal.androidterm.compat.FileCompat;
+import jackpal.androidterm.preferences.SliderPreference;
 
 import android.os.Bundle;
 import android.preference.EditTextPreference;
@@ -56,6 +57,7 @@ public class TermPreferences extends PreferenceActivity {
 
     private static final String CUSTOM_FONT_CHOOSER_KEY ="custom_font_filepath";
     private static final String CATEGORY_TEXT_KEY = "text_category";
+    private static final String TRANSPARENCY_KEY = "system_wallpaper_alpha";
 
     private static final int RESULT_CODE_FONT_CHOOSER=1;
 
@@ -179,6 +181,19 @@ public class TermPreferences extends PreferenceActivity {
             }
         }else{
             Log.e(TermPreferences.class.getName(), "cannot find 'font selector' preference");
+        }
+
+        SliderPreference transparencyPreference=(SliderPreference)findPreference(TRANSPARENCY_KEY);
+        if(transparencyPreference!=null) {
+            transparencyPreference.setOnSeekBarChangeListener(new SliderPreference.OnSeekBarChangeListener(){
+
+                @Override
+                public void onProgressChanged(SliderPreference target, int progress, boolean fromUser) {
+                    target.setValueText(String.format(getString(R.string.format_transparency_preference),100.0*progress/255));
+                }
+            });
+        }else{
+            Log.e(TermPreferences.class.getName(), "cannot find 'transparency' preference");
         }
     }
 
