@@ -63,12 +63,15 @@ class PaintRenderer extends BaseTextRenderer {
         if (blink && backColor < 8) {
             backColor += 8;
         }
+
         mTextPaint.setColor(mPalette[backColor]);
 
         float left = x + lineOffset * mCharWidth;
-        canvas.drawRect(left, y + mCharAscent - mCharDescent,
-                left + runWidth * mCharWidth, y,
-                mTextPaint);
+        if(inverse) {
+            canvas.drawRect(left, y + mCharAscent - mCharDescent,
+                    left + runWidth * mCharWidth, y,
+                    mTextPaint);
+        }
 
         boolean cursorVisible = lineOffset <= cursorOffset && cursorOffset < (lineOffset + runWidth);
         float cursorX = 0;

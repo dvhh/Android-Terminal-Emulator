@@ -341,7 +341,8 @@ public class Term extends Activity implements UpdateCallback, SharedPreferences.
             onNewIntent(getIntent());
 
         final SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        mSettings = new TermSettings(getResources(), mPrefs);
+        //mSettings = new TermSettings(getResources(), mPrefs);
+        mSettings = new TermSettings(this, mPrefs);
         mPrefs.registerOnSharedPreferenceChangeListener(this);
 
         Intent broadcast = new Intent(ACTION_PATH_BROADCAST);

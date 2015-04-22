@@ -55,6 +55,8 @@ public class TermSettings {
     private boolean mAllowPathPrepend;
     private String mHomePath;
     private String mFontPath;
+    private boolean mUseSystemWallpaper;
+    private int mWallpaperAlpha;
 
     private String mPrependPath = null;
     private String mAppendPath = null;
@@ -93,6 +95,8 @@ public class TermSettings {
     private static final String USE_KEYBOARD_SHORTCUTS = "use_keyboard_shortcuts";
     private static final String TOAST_POSITION = "toast_position";
     private static final String CUSTOM_FONT_PATH = "custom_font_filepath";
+    private static final String USE_WALLPAPER = "use_system_wallpaper";
+    private static final String WALLPAPER_ALPHA = "system_wallpaper_alpha";
 
     public static final int WHITE               = 0xffffffff;
     public static final int BLACK               = 0xff000000;
@@ -206,6 +210,8 @@ public class TermSettings {
         mFontPath = res.getString(R.string.pref_customfontfilepath_default);
         mToastPosition = res.getInteger(R.integer.pref_toast_position_default);
         mSafeMargins = res.getBoolean(R.bool.pref_safe_margins_default);
+        mUseSystemWallpaper = res.getBoolean(R.bool.pref_use_system_wallpaper_default);
+        mWallpaperAlpha = res.getInteger(R.integer.pref_transparency_default);
     }
 
     public void readPrefs(SharedPreferences prefs) {
@@ -213,7 +219,7 @@ public class TermSettings {
         mStatusBar = readIntPref(STATUSBAR_KEY, mStatusBar, 1);
         mActionBarMode = readIntPref(ACTIONBAR_KEY, mActionBarMode, ACTION_BAR_MODE_MAX);
         mOrientation = readIntPref(ORIENTATION_KEY, mOrientation, 2);
-        mSafeMargins = readBooleanPref(SAFE_MARGINS_KEY,mSafeMargins);
+        mSafeMargins = readBooleanPref(SAFE_MARGINS_KEY, mSafeMargins);
         // mCursorStyle = readIntPref(CURSORSTYLE_KEY, mCursorStyle, 2);
         // mCursorBlink = readIntPref(CURSORBLINK_KEY, mCursorBlink, 1);
         mFontSize = readIntPref(FONTSIZE_KEY, mFontSize, 288);
@@ -239,14 +245,20 @@ public class TermSettings {
                 mUseKeyboardShortcuts);
         mFontPath = readStringPref(CUSTOM_FONT_PATH, "");
         mToastPosition = readIntPref(TOAST_POSITION, mToastPosition, TOAST_POSITION_MAX);
+
+        mUseSystemWallpaper = readBooleanPref(USE_WALLPAPER, mUseSystemWallpaper);
+        mWallpaperAlpha = readIntPref(WALLPAPER_ALPHA, mWallpaperAlpha, 255);
+
         mPrefs = null;  // we leak a Context if we hold on to this
+
     }
 
     private int readIntPref(String key, int defaultValue, int maxValue) {
         int val;
         try {
-            val = Integer.parseInt(
-                mPrefs.getString(key, Integer.toString(defaultValue)));
+            String read=mPrefs.getString(key, Integer.toString(defaultValue));
+            val = Integer.parseInt(read);
+            //val = mPrefs.getInt(key,defaultValue);
         } catch (NumberFormatException e) {
             val = defaultValue;
         }
@@ -421,5 +433,7 @@ public class TermSettings {
     }
 
     public String getFontPath() { return mFontPath;}
-    
+
+    public boolean getUseWallpaper() {return mUseSystemWallpaper;}
+    public int getmWallpaperAlpha() {return mWallpaperAlpha;}
 }

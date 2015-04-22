@@ -16,6 +16,7 @@
 
 package jackpal.androidterm;
 
+import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.DisplayMetrics;
@@ -23,6 +24,7 @@ import android.util.DisplayMetrics;
 import java.io.File;
 
 import jackpal.androidterm.compat.TypefaceCompat;
+import jackpal.androidterm.compat.WallpaperCompat;
 import jackpal.androidterm.emulatorview.ColorScheme;
 import jackpal.androidterm.emulatorview.EmulatorView;
 import jackpal.androidterm.emulatorview.TermSession;
@@ -62,6 +64,13 @@ public class TermView extends EmulatorView {
         setFnKeyCode(settings.getFnKeyCode());
         setTermType(settings.getTermType());
         setMouseTracking(settings.getMouseTrackingFlag());
+
+        if(settings.getUseWallpaper()) {
+            setmBackgroundDrawable(WallpaperCompat.getDrawable(getContext()));
+            setBackgroundAlpha(settings.getmWallpaperAlpha());
+        }else{
+            setmBackgroundDrawable(null);
+        }
     }
 
     public void updatePrefs(TermSettings settings) {

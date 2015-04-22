@@ -85,7 +85,7 @@ public class SliderPreference extends DialogPreference implements SeekBar.OnSeek
         layout.addView(mSeekBar, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
         if (shouldPersist())
-            mValue = getPersistedInt(mDefault);
+            mValue = Integer.valueOf(getPersistedString(Integer.toString(mDefault)));
 
         mSeekBar.setMax(mMax);
         mSeekBar.setProgress(mValue);
@@ -146,7 +146,8 @@ public class SliderPreference extends DialogPreference implements SeekBar.OnSeek
         if (shouldPersist()) {
 
             mValue = mSeekBar.getProgress();
-            persistInt(mSeekBar.getProgress());
+            //persistInt(mSeekBar.getProgress());
+            persistString(Integer.toString(mSeekBar.getProgress()));
             callChangeListener(Integer.valueOf(mSeekBar.getProgress()));
         }
 
