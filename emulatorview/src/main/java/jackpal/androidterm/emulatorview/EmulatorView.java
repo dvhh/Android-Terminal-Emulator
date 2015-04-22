@@ -1571,6 +1571,7 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
             mBackgroundDrawable.draw(canvas);
 
             //backgroundPaint.setAlpha(255 - mBackgroundAlpha);
+            canvas.drawRect(0,0, w, mTopOfScreenMargin, backgroundPaint);
             canvas.drawRect(0,mVisibleRows*mCharacterHeight+mTopOfScreenMargin, w, h, backgroundPaint);
 
         }
