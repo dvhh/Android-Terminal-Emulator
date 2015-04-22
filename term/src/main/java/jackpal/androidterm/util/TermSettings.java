@@ -23,6 +23,7 @@ import jackpal.androidterm.compat.UIModeCompat;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 
@@ -301,7 +302,14 @@ public class TermSettings {
     }
 
     public int[] getColorScheme() {
-        return COLOR_SCHEMES[mColorId];
+        int[] result=COLOR_SCHEMES[mColorId];
+        if(mUseSystemWallpaper) {
+            int alpha = ( mWallpaperAlpha << 24 ) ;
+            int old= result[1];
+            result[1] = old & 0x00ffffff | alpha;
+            Log.d("Term",String.format("%x %x %x",result[1],old,alpha));
+        }
+        return result;
     }
 
     public boolean defaultToUTF8Mode() {

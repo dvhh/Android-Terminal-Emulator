@@ -1564,12 +1564,15 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
         Paint backgroundPaint =
                 reverseVideo ? mForegroundPaint : mBackgroundPaint;
         if(mBackgroundDrawable==null) {
-            //canvas.drawRect(0, 0, w, h, backgroundPaint);
-        }else{
-            mBackgroundDrawable.setBounds(0,0,w,h);
-            mBackgroundDrawable.draw(canvas);
-            backgroundPaint.setAlpha(255 - mBackgroundAlpha);
             canvas.drawRect(0, 0, w, h, backgroundPaint);
+        }else{
+
+            mBackgroundDrawable.setBounds(0, 0, w, h);
+            mBackgroundDrawable.draw(canvas);
+
+            //backgroundPaint.setAlpha(255 - mBackgroundAlpha);
+            canvas.drawRect(0,mVisibleRows*mCharacterHeight+mTopOfScreenMargin, w, h, backgroundPaint);
+
         }
         float x = -mLeftColumn * mCharacterWidth;
         float y = mCharacterHeight + mTopOfScreenMargin;
