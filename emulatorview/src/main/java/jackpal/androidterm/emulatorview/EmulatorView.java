@@ -1566,8 +1566,20 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
         if(mBackgroundDrawable==null) {
             canvas.drawRect(0, 0, w, h, backgroundPaint);
         }else{
+            int bw=mBackgroundDrawable.getIntrinsicWidth();
+            int bh=mBackgroundDrawable.getIntrinsicHeight();
+            double vratio=1.0*h/bh;
+            double hratio=1.0*w/bw;
+            double ratio=hratio;
+            if(bh*hratio<h) {
+                ratio=vratio;
+            }
 
-            mBackgroundDrawable.setBounds(0, 0, w, h);
+            int tw= (int) (bw*ratio);
+            int th= (int) (bh*ratio);
+            int lm=(w-tw)/2;
+            int tm=(h-th)/2;
+            mBackgroundDrawable.setBounds(lm, tm, lm+tw,tm+th);
             mBackgroundDrawable.draw(canvas);
 
             //backgroundPaint.setAlpha(255 - mBackgroundAlpha);
