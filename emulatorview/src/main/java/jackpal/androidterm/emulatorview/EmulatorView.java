@@ -1573,6 +1573,7 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
             //backgroundPaint.setAlpha(255 - mBackgroundAlpha);
             canvas.drawRect(0,0, w, mTopOfScreenMargin, backgroundPaint);
             canvas.drawRect(0,mVisibleRows*mCharacterHeight+mTopOfScreenMargin, w, h, backgroundPaint);
+            canvas.drawRect(mVisibleColumns*mCharacterWidth,mTopOfScreenMargin,w,mVisibleRows*mCharacterHeight+mTopOfScreenMargin,backgroundPaint);
 
         }
         float x = -mLeftColumn * mCharacterWidth;

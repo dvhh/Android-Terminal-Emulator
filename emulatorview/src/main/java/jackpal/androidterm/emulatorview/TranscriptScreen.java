@@ -190,6 +190,7 @@ class TranscriptScreen implements Screen {
                 renderer.drawTextRun(canvas, x, y, selx1, selx2-selx1,
                                 blank, 0, 1, true, defaultStyle,
                                 cx, 0, 1, 1, cursorMode);
+                return;
             }
             if (cx != -1) {
                 char[] blank = new char[1];
@@ -198,7 +199,17 @@ class TranscriptScreen implements Screen {
                 renderer.drawTextRun(canvas, x, y, cx, 1,
                         blank, 0, 1, true, defaultStyle,
                         cx, 0, 1, 1, cursorMode);
+                blank = new char[mColumns];
+                Arrays.fill(blank, ' ');
+                renderer.drawTextRun(canvas,x,y,cx,mColumns-cx,blank,cx,blank.length,false,defaultStyle,cx,0,1,1,cursorMode);
+                return;
             }
+            char[] blank = new char[mColumns];
+            Arrays.fill(blank, ' ');
+            renderer.drawTextRun(canvas, x, y, cx, mColumns + 1,
+                    blank, 0, blank.length, false, defaultStyle,
+                    cx, 0, 1, 1, cursorMode);
+
 
             return;
         }
