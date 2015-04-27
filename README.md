@@ -1,5 +1,19 @@
 #Terminal Emulator for Android
 
+This is a fork from the excellent Terminal Emulator for Android from Jack Palevich, unfortunately he decided to stop development on it, to be fair the application as it is is already very usable.
+
+This fork contains some **extra features** :
+
+- Custom font 
+- Safe margins for the terminal view when outputing over HDMI 
+- Toast position customization
+ 
+Feel free to download the lasted version [here](https://github.com/dvhh/Android-Terminal-Emulator/releases/tag/1.0.70).
+
+Below is the original readme
+
+----
+
 *Note:* Terminal Emulator for Android development is complete. I am not
 accepting pull requests any more.
 
