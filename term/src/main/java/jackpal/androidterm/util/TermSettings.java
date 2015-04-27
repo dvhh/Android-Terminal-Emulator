@@ -307,7 +307,6 @@ public class TermSettings {
             int alpha = ( mWallpaperAlpha << 24 ) ;
             int old= result[1];
             result[1] = old & 0x00ffffff | alpha;
-            Log.d("Term",String.format("%x %x %x",result[1],old,alpha));
         }
         return result;
     }

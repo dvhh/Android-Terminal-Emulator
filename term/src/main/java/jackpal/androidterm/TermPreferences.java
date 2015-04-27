@@ -244,16 +244,33 @@ public class TermPreferences extends PreferenceActivity {
         String result=null;
         Cursor returnCursor =
                 getContentResolver().query(uri, null, null, null, null);
-        int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-        int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
 
-        returnCursor.moveToFirst();
+        String filename=null;
+        long filesize=-1;
 
-        String filename=returnCursor.getString(nameIndex);
-        long filesize=returnCursor.getLong(sizeIndex);
-        returnCursor.close();
-        returnCursor=null;
-        if(filename.endsWith(".ttf") || filename.endsWith(".otf")) {
+
+
+        if(returnCursor!=null) {
+            int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+            int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+
+            returnCursor.moveToFirst();
+
+            filename = returnCursor.getString(nameIndex);
+            filesize = returnCursor.getLong(sizeIndex);
+            returnCursor.close();
+            returnCursor = null;
+        }else{
+            File f=new File(uri.getPath());
+            if(f.exists() && f.isFile()) {
+                filename=f.getName();
+                filesize=f.length();
+            }else {
+                return null;
+            }
+        }
+
+            if(filename.endsWith(".ttf") || filename.endsWith(".otf")) {
             // OK the file extension pass
 
 

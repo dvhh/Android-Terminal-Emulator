@@ -51,9 +51,9 @@ public class      FSNavigator
   {
     super.onCreate(savedInstanceState);
     setTitle(getString(R.string.fsnavigator_title));//"File Selector");
-    SP=PreferenceManager.getDefaultSharedPreferences(context);
-    theme=SP.getInt("theme", theme);
-    setTheme(theme);
+    //SP=PreferenceManager.getDefaultSharedPreferences(context);
+    //theme=SP.getInt("theme", theme);
+    //setTheme(theme);
     getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
     Intent intent= getIntent();
@@ -80,7 +80,7 @@ public class      FSNavigator
   ////////////////////////////////////////////////////////////
   private void doPause()
   {
-    SP.edit().putString("lastDirectory", getCanonicalPath(cd)).commit();
+    //SP.edit().putString("lastDirectory", getCanonicalPath(cd)).commit();
   }
   ////////////////////////////////////////////////////////////
   public void onResume()
@@ -329,7 +329,7 @@ public class      FSNavigator
                           tv.setId(R.id.textview);
                           tv.setLayoutParams(
                             new LinearLayout.LayoutParams(
-                              LinearLayout.LayoutParams.FILL_PARENT
+                              LinearLayout.LayoutParams.WRAP_CONTENT
                             , BUTTON_SIZE
                             , 1
                             )
@@ -341,7 +341,7 @@ public class      FSNavigator
                           hv.setOnClickListener(directoryListener);
                           hv.setLayoutParams(
                             new LinearLayout.LayoutParams(
-                              LinearLayout.LayoutParams.FILL_PARENT
+                              LinearLayout.LayoutParams.WRAP_CONTENT
                             , BUTTON_SIZE
                             , 7
                             )
@@ -349,7 +349,7 @@ public class      FSNavigator
     LinearLayout          ll=new LinearLayout(context);
                           ll.setLayoutParams(
                             new LinearLayout.LayoutParams(
-                              LinearLayout.LayoutParams.FILL_PARENT
+                              LinearLayout.LayoutParams.WRAP_CONTENT
                             , BUTTON_SIZE
                             , 2
                             )

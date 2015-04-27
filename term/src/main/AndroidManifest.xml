@@ -119,6 +119,7 @@
       android:launchMode="singleTop"
       android:configChanges="orientation|keyboardHidden"
       android:exported="true"
+      android:theme="@android:style/Theme.Dialog"
     >
       <intent-filter>
         <action android:name="android.intent.action.PICK" />
