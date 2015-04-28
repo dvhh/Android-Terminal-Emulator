@@ -60,6 +60,7 @@ import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -70,6 +71,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -557,6 +559,9 @@ public class Term extends Activity implements UpdateCallback, SharedPreferences.
     private void updatePrefs() {
         mUseKeyboardShortcuts = mSettings.getUseKeyboardShortcutsFlag();
 
+
+        getWindow().getDecorView().requestLayout();
+
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
@@ -564,6 +569,7 @@ public class Term extends Activity implements UpdateCallback, SharedPreferences.
 
         for (View v : mViewFlipper) {
             ((EmulatorView) v).setDensity(metrics);
+            //((EmulatorView) v).updateSize(true);
             ((TermView) v).updatePrefs(mSettings);
         }
 
@@ -605,6 +611,8 @@ public class Term extends Activity implements UpdateCallback, SharedPreferences.
         } else {
             /* Shouldn't be happened. */
         }
+
+
         setRequestedOrientation(o);
 
         this.toastGravity=mSettings.getToastGravity();
@@ -1154,4 +1162,5 @@ public class Term extends Activity implements UpdateCallback, SharedPreferences.
         if(handlers.size() > 0)
             startActivity(openLink);
     }
+
 }

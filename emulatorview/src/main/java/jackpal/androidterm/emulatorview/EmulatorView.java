@@ -1490,6 +1490,7 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
      */
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w,h,oldw,oldh);
         if (mTermSession == null) {
             // Not ready, defer until TermSession is attached
             mDeferInit = true;
@@ -1505,11 +1506,13 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
     }
 
     private void updateSize(int w, int h) {
-        mColumns = Math.max(1, (int) (((float) w) / mCharacterWidth));
+        int hp=getPaddingLeft()+getPaddingRight();
+        int vp=getPaddingTop()+getPaddingBottom();
+        mColumns = Math.max(1, (int) (((float) (w-hp)) / mCharacterWidth));
         mVisibleColumns = Math.max(1, (int) (((float) mVisibleWidth) / mCharacterWidth));
 
         mTopOfScreenMargin = mTextRenderer.getTopMargin();
-        mRows = Math.max(1, (h - mTopOfScreenMargin) / mCharacterHeight);
+        mRows = Math.max(1, ((h-vp) - mTopOfScreenMargin) / mCharacterHeight);
         mVisibleRows = Math.max(1, (mVisibleHeight - mTopOfScreenMargin) / mCharacterHeight);
         mTermSession.updateSize(mColumns, mRows);
 
@@ -1532,7 +1535,7 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
         if (mKnownSize) {
             int w = getWidth();
             int h = getHeight();
-            // Log.w("Term", "(" + w + ", " + h + ")");
+            Log.w("Term", "(" + w + ", " + h + ")");
             if (force || w != mVisibleWidth || h != mVisibleHeight) {
                 mVisibleWidth = w;
                 mVisibleHeight = h;
@@ -1588,8 +1591,8 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
             canvas.drawRect(mVisibleColumns*mCharacterWidth,mTopOfScreenMargin,w,mVisibleRows*mCharacterHeight+mTopOfScreenMargin,backgroundPaint);
 
         }
-        float x = -mLeftColumn * mCharacterWidth;
-        float y = mCharacterHeight + mTopOfScreenMargin;
+        float x = -mLeftColumn * mCharacterWidth + getPaddingLeft();
+        float y = mCharacterHeight + mTopOfScreenMargin + getPaddingTop();
         int endLine = mTopRow + mRows;
         int cx = mEmulator.getCursorCol();
         int cy = mEmulator.getCursorRow();
@@ -1772,4 +1775,6 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
         else
             return null;
     }
+
+
 }

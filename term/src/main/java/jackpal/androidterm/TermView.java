@@ -29,6 +29,7 @@ import jackpal.androidterm.emulatorview.ColorScheme;
 import jackpal.androidterm.emulatorview.EmulatorView;
 import jackpal.androidterm.emulatorview.TermSession;
 
+import jackpal.androidterm.util.DpiUtils;
 import jackpal.androidterm.util.TermSettings;
 
 public class TermView extends EmulatorView {
@@ -50,6 +51,17 @@ public class TermView extends EmulatorView {
     }
 
     public void updatePrefs(TermSettings settings, ColorScheme scheme) {
+        if(settings.getSafeMargins()) {
+            int vp=DpiUtils.dpToPixel(getContext(), 48);
+            int hp=DpiUtils.dpToPixel(getContext(), 27);
+            setPadding(
+                    vp, hp,
+                    vp, hp
+            );
+        }else{
+            setPadding(0, 0, 0, 0);
+        }
+
         if (scheme == null) {
             scheme = new ColorScheme(settings.getColorScheme());
         }
