@@ -76,6 +76,7 @@ public class TermSettings {
     private static final String ACTIONBAR_KEY = "actionbar";
     private static final String ORIENTATION_KEY = "orientation";
     private static final String SAFE_MARGINS_KEY = "safe_margins";
+    private static final String CURSORSTYLE_KEY = "cursorstyle";
     private static final String FONTSIZE_KEY = "fontsize";
     private static final String COLOR_KEY = "color";
     private static final String UTF8_KEY = "utf8_by_default";
@@ -221,7 +222,7 @@ public class TermSettings {
         mActionBarMode = readIntPref(ACTIONBAR_KEY, mActionBarMode, ACTION_BAR_MODE_MAX);
         mOrientation = readIntPref(ORIENTATION_KEY, mOrientation, 2);
         mSafeMargins = readBooleanPref(SAFE_MARGINS_KEY, mSafeMargins);
-        // mCursorStyle = readIntPref(CURSORSTYLE_KEY, mCursorStyle, 2);
+        mCursorStyle = readIntPref(CURSORSTYLE_KEY, mCursorStyle, 2);
         // mCursorBlink = readIntPref(CURSORBLINK_KEY, mCursorBlink, 1);
         mFontSize = readIntPref(FONTSIZE_KEY, mFontSize, 288);
         mColorId = readIntPref(COLOR_KEY, mColorId, COLOR_SCHEMES.length - 1);

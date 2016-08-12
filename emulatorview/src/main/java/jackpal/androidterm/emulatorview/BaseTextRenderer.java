@@ -317,6 +317,7 @@ abstract class BaseTextRenderer implements TextRenderer {
     private Bitmap mCursorBitmap;
     private Bitmap mWorkBitmap;
     private int mCursorBitmapCursorMode = -1;
+    private int mCursorStyle = 0;
 
     public BaseTextRenderer(ColorScheme scheme) {
         if (scheme == null) {
@@ -393,6 +394,19 @@ abstract class BaseTextRenderer implements TextRenderer {
 
     protected void drawCursorImp(Canvas canvas, float x, float y, float charWidth, float charHeight,
             int cursorMode) {
+
+        switch(mCursorStyle){
+            case 1:
+                charHeight = charHeight / 10.0f;
+                break;
+            case 2:
+                charWidth = charWidth / 10.0f;
+                break;
+            case 0:
+            default:
+                break;
+        }
+
         if (cursorMode == 0) {
             canvas.drawRect(x,  y - charHeight, x + charWidth, y, mCursorScreenPaint);
             return;
@@ -443,6 +457,11 @@ abstract class BaseTextRenderer implements TextRenderer {
             canvas.drawPath(path, mCursorPaint);
             break;
         }
+    }
+
+    public void setCursorStyle(int cursorStyle)
+    {
+        mCursorStyle = cursorStyle;
     }
 }
 
