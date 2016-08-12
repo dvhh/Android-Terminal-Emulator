@@ -102,7 +102,7 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
     /**
      * Used to render text
      */
-    private TextRenderer mTextRenderer;
+    private BaseTextRenderer mTextRenderer;
 
     /**
      * Text size. Zero means 4 x 8 font.
@@ -166,6 +166,7 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
     private static final int CURSOR_BLINK_PERIOD = 1000;
 
     private boolean mCursorVisible = true;
+    private int mCursorStyle = 0;
 
     private boolean mIsSelectingText = false;
 
@@ -612,6 +613,18 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
         if (mKeyListener != null) {
             mKeyListener.onPause();
         }
+    }
+
+    /**
+     * Set this <code>EmulatorView</code>'s cursor style.
+     * @param cursorStyle The cursor style to use.
+     *                    0 for block
+     *                    1 for underdash
+     *                    2 for vertical line
+     */
+    public void setCursorStyle(int cursorStyle)
+    {
+        mCursorStyle = cursorStyle;
     }
 
     /**
@@ -1469,11 +1482,13 @@ public class EmulatorView extends View implements GestureDetector.OnGestureListe
     private void updateText() {
         ColorScheme scheme = mColorScheme;
         if (mTextSize > 0) {
-            mTextRenderer = new CustomFontPaintRenderer(mTextSize, scheme,mTypeface);
+            mTextRenderer = new CustomFontPaintRenderer(mTextSize, scheme, mTypeface);
         }
         else {
             mTextRenderer = new Bitmap4x8FontRenderer(getResources(), scheme);
         }
+
+        mTextRenderer.setCursorStyle(mCursorStyle);
 
         mForegroundPaint.setColor(scheme.getForeColor());
         mBackgroundPaint.setColor(scheme.getBackColor());
