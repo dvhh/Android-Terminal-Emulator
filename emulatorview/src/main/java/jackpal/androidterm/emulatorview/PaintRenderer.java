@@ -107,7 +107,11 @@ class PaintRenderer extends BaseTextRenderer {
                     canvas.drawText(text, index, countBeforeCursor, left, textOriginY, mTextPaint);
                 }
                 // Text at cursor
-                mTextPaint.setColor(mPalette[TextStyle.ciCursorForeground]);
+                // Only use invert color with BLOCK cursor.
+                // For underdash and vertical line, use normal color.
+                if(mCursorStyle == 0) {
+                    mTextPaint.setColor(mPalette[TextStyle.ciCursorForeground]);
+                }
                 canvas.drawText(text, cursorIndex, cursorIncr, cursorX,
                         textOriginY, mTextPaint);
                 // Text after cursor

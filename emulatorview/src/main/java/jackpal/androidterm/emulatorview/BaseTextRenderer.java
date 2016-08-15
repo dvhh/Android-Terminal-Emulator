@@ -317,7 +317,7 @@ abstract class BaseTextRenderer implements TextRenderer {
     private Bitmap mCursorBitmap;
     private Bitmap mWorkBitmap;
     private int mCursorBitmapCursorMode = -1;
-    private int mCursorStyle = 0;
+    protected int mCursorStyle = 0;
 
     public BaseTextRenderer(ColorScheme scheme) {
         if (scheme == null) {
