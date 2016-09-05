@@ -459,9 +459,12 @@ abstract class BaseTextRenderer implements TextRenderer {
         }
     }
 
-    public void setCursorStyle(int cursorStyle)
-    {
+    public void setCursorStyle(int cursorStyle) {
         mCursorStyle = cursorStyle;
+    }
+
+    public int getCursorStyle(){
+        return mCursorStyle;
     }
 }
 
